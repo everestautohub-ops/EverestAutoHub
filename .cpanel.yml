@@ -1,15 +1,10 @@
 ---
 deployment:
   tasks:
-    # ---- Step 1: Copy Backend ----
     - export BACKEND=/home2/everestautohub/backend
     - /bin/mkdir -p $BACKEND
     - /bin/cp -R everest-auto-hub/backend/* $BACKEND
-
-    # ---- Step 2: Install Backend Dependencies ----
     - cd /home2/everestautohub/backend && npm install --production
-
-    # ---- Step 3: Copy React Build to public_html ----
     - export DEPLOYPATH=/home2/everestautohub/public_html
     - /bin/mkdir -p $DEPLOYPATH
     - /bin/cp -R everest-auto-hub/frontend/build/* $DEPLOYPATH
