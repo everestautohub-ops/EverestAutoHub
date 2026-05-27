@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Block admin and private pages
+Disallow: /admin
+Disallow: /admin/
+Disallow: /cart
+Disallow: /checkout
+Disallow: /profile
+Disallow: /login
+
+Sitemap: https://everest-auto-hub.vercel.app/sitemap.xml
