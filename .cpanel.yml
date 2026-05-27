@@ -7,4 +7,4 @@ deployment:
     - cd /home2/everestautohub/backend && npm install --production
     - export DEPLOYPATH=/home2/everestautohub/public_html
     - /bin/mkdir -p $DEPLOYPATH
-    - /bin/cp -R everest-auto-hub/frontend/build/* $DEPLOYPATH
+    - /bin/cp -R everest-auto-hub/frontend/dist/* $DEPLOYPATH
