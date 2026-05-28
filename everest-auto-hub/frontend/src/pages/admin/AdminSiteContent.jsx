@@ -372,13 +372,37 @@ export default function AdminSiteContent() {
 
       {/* ── FOOTER ── */}
       {tab === 'footer' && (
-        <Section title="Footer Content">
-          <Field label="Tagline (below logo)" fieldKey="footerTagline" value={form.footerTagline} onChange={handleChange} multiline />
-          <Field label="Phone" fieldKey="footerPhone" value={form.footerPhone} onChange={handleChange} />
-          <Field label="Email" fieldKey="footerEmail" value={form.footerEmail} onChange={handleChange} />
-          <Field label="Address" fieldKey="footerAddress" value={form.footerAddress} onChange={handleChange} />
-          <Field label="Copyright Text" fieldKey="footerCopyright" value={form.footerCopyright} onChange={handleChange} />
-        </Section>
+        <>
+          <Section title="Footer Content">
+            <Field label="Tagline (below logo)" fieldKey="footerTagline" value={form.footerTagline} onChange={handleChange} multiline />
+            <Field label="Phone" fieldKey="footerPhone" value={form.footerPhone} onChange={handleChange} />
+            <Field label="Email" fieldKey="footerEmail" value={form.footerEmail} onChange={handleChange} />
+            <Field label="Address" fieldKey="footerAddress" value={form.footerAddress} onChange={handleChange} />
+            <Field label="Copyright Text" fieldKey="footerCopyright" value={form.footerCopyright} onChange={handleChange} />
+          </Section>
+
+          <Section title="📱 Social Media Links">
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem', marginBottom: '1rem' }}>
+              Paste the full URL for each platform. Leave blank to hide.
+            </p>
+            <Field label="Facebook URL" fieldKey="socialFacebook" value={form.socialFacebook} onChange={handleChange} placeholder="https://facebook.com/yourpage" />
+            <Field label="Instagram URL" fieldKey="socialInstagram" value={form.socialInstagram} onChange={handleChange} placeholder="https://instagram.com/yourhandle" />
+            <Field label="Twitter / X URL" fieldKey="socialTwitter" value={form.socialTwitter} onChange={handleChange} placeholder="https://twitter.com/yourhandle" />
+            <Field label="YouTube URL" fieldKey="socialYoutube" value={form.socialYoutube} onChange={handleChange} placeholder="https://youtube.com/@yourchannel" />
+            <Field label="TikTok URL" fieldKey="socialTiktok" value={form.socialTiktok} onChange={handleChange} placeholder="https://tiktok.com/@yourhandle" />
+          </Section>
+
+          <Section title="📞 Floating Contact Button">
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem', marginBottom: '1rem' }}>
+              These numbers appear when users click the floating phone button on your site.
+            </p>
+            <Field label="Phone Number (for Call button)" fieldKey="floatingPhone" value={form.floatingPhone} onChange={handleChange} placeholder="+61 2 9000 0000" />
+            <Field label="WhatsApp Number (with country code, no spaces)" fieldKey="floatingWhatsapp" value={form.floatingWhatsapp} onChange={handleChange} placeholder="+61412345678" />
+            <small style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>
+              WhatsApp example: +61412345678 (include country code, no spaces or dashes)
+            </small>
+          </Section>
+        </>
       )}
     </div>
   );

@@ -60,6 +60,15 @@ const SiteContent = sequelize.define('SiteContent', {
   footerAddress:        { type: DataTypes.STRING, defaultValue: 'Sydney, NSW, Australia' },
   footerCopyright:      { type: DataTypes.STRING, defaultValue: '© 2024 Everest Auto Hub. All rights reserved.' },
   defaultCurrency:      { type: DataTypes.STRING, defaultValue: 'AUD' },
+  // Social media links
+  socialFacebook:       { type: DataTypes.STRING, defaultValue: '' },
+  socialInstagram:      { type: DataTypes.STRING, defaultValue: '' },
+  socialTwitter:        { type: DataTypes.STRING, defaultValue: '' },
+  socialYoutube:        { type: DataTypes.STRING, defaultValue: '' },
+  socialTiktok:         { type: DataTypes.STRING, defaultValue: '' },
+  // Floating contact button
+  floatingPhone:        { type: DataTypes.STRING, defaultValue: '' },
+  floatingWhatsapp:     { type: DataTypes.STRING, defaultValue: '' },
 }, { tableName: 'site_content' });
 
 // Ensure JSON array fields are always arrays, never strings

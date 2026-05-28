@@ -6,7 +6,9 @@ import { CurrencyProvider } from './context/CurrencyContext';
 import { NotificationProvider } from './context/NotificationContext';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { useState, useEffect } from 'react';
-import { FiPhone, FiArrowUp } from 'react-icons/fi';
+import { FiPhone, FiArrowUp, FiX } from 'react-icons/fi';
+import { FaWhatsapp } from 'react-icons/fa';
+import api from './utils/api';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -73,11 +75,23 @@ const GuestOnly = ({ children }) => {
 
 const PublicLayout = ({ children }) => {
   const [showTop, setShowTop] = useState(false);
+  const [fabOpen, setFabOpen] = useState(false);
+  const [siteData, setSiteData] = useState(null);
+
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 400);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    api.get('/site-content').then(r => setSiteData(r.data)).catch(() => {});
+  }, []);
+
+  const phone = siteData?.floatingPhone || siteData?.footerPhone || siteData?.contactPhone1 || '';
+  const whatsapp = siteData?.floatingWhatsapp || '';
+  const phoneClean = phone.replace(/\s/g, '');
+  const whatsappClean = whatsapp.replace(/[\s+\-()]/g, '');
 
   return (
     <>
@@ -85,33 +99,62 @@ const PublicLayout = ({ children }) => {
       {children}
       <Footer />
       <NoticePopup />
-      {/* Floating Call Button */}
-      <a
-        href="tel:+61290000000"
-        style={{
-          position: 'fixed', bottom: '24px', right: '24px', zIndex: 999,
-          background: 'var(--primary)', color: '#fff',
-          width: '52px', height: '52px', borderRadius: '50%',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: '0 4px 20px rgba(249,115,22,0.5)',
-          transition: 'transform 0.2s, box-shadow 0.2s',
-          animation: 'pulse-call 2.5s infinite',
-        }}
-        title="Call Us"
-        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.1)'}
-        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-      >
-        <FiPhone size={22} />
-      </a>
+
+      {/* Floating Contact Button */}
+      <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 999, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10 }}>
+        {/* Expanded options */}
+        {fabOpen && (
+          <>
+            {whatsappClean && (
+              <a
+                href={`https://wa.me/${whatsappClean}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#25D366', color: '#fff', padding: '10px 16px', borderRadius: 30, boxShadow: '0 4px 16px rgba(37,211,102,0.4)', textDecoration: 'none', fontSize: '0.88rem', fontWeight: 600, whiteSpace: 'nowrap', animation: 'fabSlideIn 0.2s ease' }}
+              >
+                <FaWhatsapp size={18} /> WhatsApp
+              </a>
+            )}
+            {phoneClean && (
+              <a
+                href={`tel:${phoneClean}`}
+                style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--primary)', color: '#fff', padding: '10px 16px', borderRadius: 30, boxShadow: '0 4px 16px rgba(249,115,22,0.4)', textDecoration: 'none', fontSize: '0.88rem', fontWeight: 600, whiteSpace: 'nowrap', animation: 'fabSlideIn 0.2s ease' }}
+              >
+                <FiPhone size={16} /> Call Us
+              </a>
+            )}
+          </>
+        )}
+
+        {/* Main FAB button */}
+        <button
+          onClick={() => setFabOpen(o => !o)}
+          style={{
+            background: fabOpen ? 'var(--bg-3)' : 'var(--primary)',
+            color: fabOpen ? 'var(--text)' : '#fff',
+            border: fabOpen ? '1px solid var(--border)' : 'none',
+            width: 52, height: 52, borderRadius: '50%',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            boxShadow: fabOpen ? 'var(--shadow)' : '0 4px 20px rgba(249,115,22,0.5)',
+            cursor: 'pointer',
+            transition: 'all 0.2s',
+            animation: fabOpen ? 'none' : 'pulse-call 2.5s infinite',
+          }}
+          title={fabOpen ? 'Close' : 'Contact Us'}
+        >
+          {fabOpen ? <FiX size={20} /> : <FiPhone size={22} />}
+        </button>
+      </div>
+
       {/* Back to Top */}
       {showTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           style={{
-            position: 'fixed', bottom: '86px', right: '24px', zIndex: 999,
+            position: 'fixed', bottom: '86px', right: '24px', zIndex: 998,
             background: 'var(--bg-3)', color: 'var(--text)',
             border: '1px solid var(--border)',
-            width: '40px', height: '40px', borderRadius: '50%',
+            width: 40, height: 40, borderRadius: '50%',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             boxShadow: 'var(--shadow)', cursor: 'pointer',
             transition: 'all 0.2s',

@@ -50,10 +50,10 @@ export default function Footer() {
             <BrandLogo size="md" />
             <p>{d.footerTagline || "Australia's trusted auto workshop and lifestyle brand. We keep your vehicle running and your style on point."}</p>
             <div className="footer-social">
-              <a href="#" aria-label="Facebook"><FiFacebook /></a>
-              <a href="#" aria-label="Instagram"><FiInstagram /></a>
-              <a href="#" aria-label="Twitter"><FiTwitter /></a>
-              <a href="#" aria-label="YouTube"><FiYoutube /></a>
+              <a href={d.socialFacebook || '#'} target={d.socialFacebook ? '_blank' : '_self'} rel="noopener noreferrer" aria-label="Facebook"><FiFacebook /></a>
+              <a href={d.socialInstagram || '#'} target={d.socialInstagram ? '_blank' : '_self'} rel="noopener noreferrer" aria-label="Instagram"><FiInstagram /></a>
+              <a href={d.socialTwitter || '#'} target={d.socialTwitter ? '_blank' : '_self'} rel="noopener noreferrer" aria-label="Twitter"><FiTwitter /></a>
+              <a href={d.socialYoutube || '#'} target={d.socialYoutube ? '_blank' : '_self'} rel="noopener noreferrer" aria-label="YouTube"><FiYoutube /></a>
             </div>
           </div>
 
