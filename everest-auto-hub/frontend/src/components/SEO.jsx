@@ -1,50 +1,57 @@
 import { Helmet } from 'react-helmet-async';
 
-const SITE_NAME = 'EverestAutoHub';
-const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://everest-auto-hub.vercel.app';
+const SITE_NAME = 'Everest Auto Hub';
+const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://everestautohub.com.au';
 const DEFAULT_IMAGE = `${SITE_URL}/logo.png`;
 
-/**
- * SEO component — drop into any page to set title, description, OG tags, etc.
- *
- * Props:
- *  title       — page title (appended with " | Everest Auto Hub")
- *  description — meta description (max ~160 chars)
- *  image       — OG image URL (defaults to logo)
- *  url         — canonical URL (defaults to current path)
- *  type        — OG type: "website" | "product" | "article" (default: "website")
- *  noIndex     — set true to block indexing (admin pages, cart, checkout)
- *  schema      — JSON-LD structured data object (optional)
- */
+// Page title map — what shows in browser tab and Google
+const PAGE_TITLES = {
+  '/':            'Everest Auto Hub — Expert Auto Repair & Clothing',
+  '/services':    'Everest Auto Hub | Our Services',
+  '/appointment': 'Everest Auto Hub | Book an Appointment',
+  '/shop':        'Everest Auto Hub | Shop',
+  '/about':       'Everest Auto Hub | About Us',
+  '/contact':     'Everest Auto Hub | Contact Us',
+  '/cart':        'Everest Auto Hub | Cart',
+  '/checkout':    'Everest Auto Hub | Checkout',
+  '/profile':     'Everest Auto Hub | My Profile',
+  '/login':       'Everest Auto Hub | Login',
+};
+
 export default function SEO({ title, description, image, url, type = 'website', noIndex = false, schema }) {
-  const fullTitle = title ? `${title} | EverestAutoHub` : `EverestAutoHub — Premium Auto Workshop & Clothing`;
-  const metaDesc  = description || 'Everest Auto Hub — Expert auto repair, maintenance services and premium automotive lifestyle clothing in Australia.';
+  // Always start with "Everest Auto Hub"
+  const fullTitle = title
+    ? `Everest Auto Hub | ${title}`
+    : (PAGE_TITLES[url] || 'Everest Auto Hub — Expert Auto Repair & Clothing');
+
+  const metaDesc  = description || 'Everest Auto Hub — Expert auto repair, maintenance services and premium automotive lifestyle clothing.';
   const ogImage   = image || DEFAULT_IMAGE;
   const canonical = url ? `${SITE_URL}${url}` : undefined;
 
   return (
     <Helmet>
-      {/* Basic */}
       <title>{fullTitle}</title>
       <meta name="description" content={metaDesc} />
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
       {canonical && <link rel="canonical" href={canonical} />}
 
-      {/* Open Graph (Facebook, WhatsApp, etc.) */}
-      <meta property="og:title"       content={fullTitle} />
-      <meta property="og:description" content={metaDesc} />
-      <meta property="og:image"       content={ogImage} />
-      <meta property="og:type"        content={type} />
-      <meta property="og:site_name"   content={SITE_NAME} />
+      {/* Open Graph */}
+      <meta property="og:title"        content={fullTitle} />
+      <meta property="og:description"  content={metaDesc} />
+      <meta property="og:image"        content={ogImage} />
+      <meta property="og:image:width"  content="512" />
+      <meta property="og:image:height" content="512" />
+      <meta property="og:type"         content={type} />
+      <meta property="og:site_name"    content={SITE_NAME} />
       {canonical && <meta property="og:url" content={canonical} />}
 
-      {/* Twitter Card */}
-      <meta name="twitter:card"        content="summary_large_image" />
+      {/* Twitter */}
+      <meta name="twitter:card"        content="summary" />
       <meta name="twitter:title"       content={fullTitle} />
       <meta name="twitter:description" content={metaDesc} />
       <meta name="twitter:image"       content={ogImage} />
 
-      {/* JSON-LD Structured Data */}
+      {/* JSON-LD */}
       {schema && (
         <script type="application/ld+json">
           {JSON.stringify(schema)}

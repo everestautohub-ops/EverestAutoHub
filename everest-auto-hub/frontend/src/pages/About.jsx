@@ -80,8 +80,8 @@ export default function About() {
   return (
     <div className="about-page">
       <SEO
-        title="About Us — Our Story & Team"
-        description="Learn about Everest Auto Hub — Australia's trusted auto workshop and clothing brand. Meet our expert mechanics and discover our story."
+        title="About Us"
+        description="Learn about Everest Auto Hub — trusted auto workshop and clothing brand. Meet our expert mechanics and discover our story."
         url="/about"
       />
       <div className="page-hero" style={imgUrl(d.aboutHeroImage) ? { backgroundImage: `url(${imgUrl(d.aboutHeroImage)})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}>

@@ -32,7 +32,7 @@ export default function Services() {
   return (
     <div className="services-page">
       <SEO
-        title="Auto Services — Oil Change, Brakes, Diagnostics & More"
+        title="Our Services"
         description="Professional auto repair and maintenance services including oil change, brake service, engine diagnostics, tire rotation, AC service and full car service."
         url="/services"
         schema={{

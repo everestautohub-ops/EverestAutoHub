@@ -129,7 +129,7 @@ export default function Shop() {
   return (
     <div className="shop-page">
       <SEO
-        title="Shop — Automotive Lifestyle Clothing"
+        title="Shop"
         description="Shop Everest Auto Hub's premium automotive lifestyle clothing. T-shirts, hoodies, caps, jackets and more. Free delivery available."
         url="/shop"
       />
