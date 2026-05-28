@@ -125,3 +125,12 @@ sequelize.authenticate()
   });
 
 module.exports = app;
+
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'https://everest-auto-hub.vercel.app',
+  'https://everestautohub.com.au',
+  'https://www.everestautohub.com.au',
+  process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, '') : null,
+].filter(Boolean);
