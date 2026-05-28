@@ -41,6 +41,10 @@ const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5173',
   'https://everest-auto-hub.vercel.app',
+  'https://everestautohub.com.au',
+  'https://www.everestautohub.com.au',
+  'http://everestautohub.com.au',
+  'http://www.everestautohub.com.au',
   process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, '') : null,
 ].filter(Boolean);
 
@@ -97,13 +101,11 @@ sequelize.authenticate()
   .then(async () => {
     console.log('✅ MySQL Connected');
 
-    // Disable FK checks so ALTER TABLE works on referenced tables
     await sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
     await sequelize.sync({ alter: true });
     await sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
     console.log('✅ Database tables synced');
 
-    // Clean up unverified users older than 24 hours every hour
     setInterval(async () => {
       try {
         const { Op } = require('sequelize');
@@ -125,12 +127,3 @@ sequelize.authenticate()
   });
 
 module.exports = app;
-
-const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:5173',
-  'https://everest-auto-hub.vercel.app',
-  'https://everestautohub.com.au',
-  'https://www.everestautohub.com.au',
-  process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, '') : null,
-].filter(Boolean);
